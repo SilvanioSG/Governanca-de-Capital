@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>GovCapital | Framework PMO & CVO para CAPEX (Edição Revisada)</title>
+    <!-- Google Fonts + Font Awesome 6 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #0a2540;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary: rgb(39, 98, 141);
+            --primary-dark: #1b4d6e;
+            --primary-soft: #eef3fc;
+            --shadow-sm: 0 8px 20px rgba(0,0,0,0.03), 0 2px 6px rgba(0,0,0,0.05);
+            --shadow-hover: 0 20px 30px -12px rgba(0,0,0,0.12), 0 8px 12px -6px rgba(0,0,0,0.05);
+            --gate-red: #fef2f0;
+            --gate-orange: #fff4e6;
+            --gate-green: #e9f7ef;
+        }
+
+        .header-primary {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .header-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.2rem;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+        .profile-img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: transform 0.25s ease, box-shadow 0.25s;
+        }
+        .profile-img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+        }
+        .title-header h1 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .title-header p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-top: 0.2rem;
+        }
+        .contact-info {
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+            background: rgba(255,255,255,0.12);
+            padding: 0.5rem 1rem;
+            border-radius: 60px;
+            backdrop-filter: blur(2px);
+        }
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+        .contact-info a:hover {
+            text-decoration: underline;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+            border: 1px solid rgba(0,0,0,0.03);
+            height: 100%;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(39, 98, 141, 0.2);
+        }
+
+        .icon-transition {
+            font-size: 2.5rem;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .card:hover .icon-transition {
+            transform: scale(1.05) rotate(2deg);
+            color: #1f6390;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem 0;
+            border-left: 6px solid var(--primary);
+            padding-left: 1rem;
+            color: #0f2b3b;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .flex-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.8rem;
+            margin: 1.5rem 0;
+        }
+        .timeline-cycle {
+            background: white;
+            border-radius: 2rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+        .cycle-step {
+            flex: 1;
+            text-align: center;
+            background: #f9fafc;
+            border-radius: 1.5rem;
+            padding: 1rem;
+            transition: 0.2s;
+        }
+        .cycle-step i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .arrow-symbol {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: 300;
+        }
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 1.2rem;
+            background: white;
+            box-shadow: var(--shadow-sm);
+        }
+        .resp-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .resp-table th {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+        }
+        .resp-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2edf2;
+        }
+        .resp-table tr:hover {
+            background: #f4f9fe;
+            transition: 0.2s;
+        }
+        .gate-table {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        .checklist {
+            background: #fafcfd;
+            border-radius: 1rem;
+            padding: 1rem;
+            list-style-type: none;
+        }
+        .checklist li {
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .checklist li i {
+            color: var(--primary);
+            width: 1.4rem;
+        }
+
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        .glossary-item {
+            border-left: 3px solid var(--primary);
+            padding: 0.5rem 0 0.5rem 1rem;
+            background: #fefefe;
+        }
+        .glossary-term {
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .footer {
+            background: var(--primary-dark);
+            color: #eef2ff;
+            padding: 1.8rem 1.5rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted rgba(255,255,255,0.5);
+        }
+        .footer a:hover {
+            border-bottom-color: white;
+        }
+        .footer-quote {
+            font-style: italic;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--primary);
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 99;
+            border: none;
+            font-size: 1.3rem;
+        }
+        .btn-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .btn-top:hover {
+            background: #1b5a83;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 760px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .contact-info {
+                align-self: flex-start;
+            }
+            .timeline-cycle {
+                flex-direction: column;
+            }
+            .arrow-symbol {
+                transform: rotate(90deg);
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+        .formula-block {
+            background: #f8fafd;
+            border-radius: 16px;
+            padding: 0.8rem;
+            font-family: monospace;
+            margin: 0.8rem 0;
+            overflow-x: auto;
+        }
+        .example {
+            background: #f0f6fa;
+            border-left: 4px solid var(--primary);
+            padding: 0.6rem 1rem;
+            margin: 1rem 0 0;
+            font-size: 0.9rem;
+            border-radius: 12px;
+        }
+        .badge {
+            background: var(--primary-soft);
+            color: var(--primary-dark);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: 1rem;
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+        .simple-chart {
+            background: #ffffff;
+            padding: 0.8rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .callout {
+            background: #eef3fc;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 1rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header-primary">
+    <div class="header-container">
+        <div class="brand">
+            <img src="Gestão_SG.png" alt="Silvanio Gois" class="profile-img" onerror="this.src='https://placehold.co/70x70?text=SG'">
+            <div class="title-header">
+                <h1><i class="fas fa-chart-line"></i> Governança de Capital · PMO & CVO</h1>
+                <p>Framework completo para CAPEX: do planejamento estratégico à captura de valor</p>
+                <p style="font-size:0.9rem; margin-top:6px;"><i class="fas fa-user-check"></i> Silvanio Gois</p>
+            </div>
+        </div>
+        <div class="contact-info">
+            <a href="https://wa.me/5513988301094" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+    <!-- Introdução com gráfico corrigido (escala ajustada e legenda clara) -->
+    <div class="card" style="margin-bottom: 2rem;">
+        <i class="fas fa-chalkboard-user icon-transition"></i>
+        <h2 style="color: var(--primary); margin: 0.5rem 0 0.5rem;">Manual de Governança de Capital</h2>
+        <p>Este guia descreve o ciclo de vida de investimentos em CAPEX integrando a eficiência de execução do <strong>PMO (Project Management Office)</strong> com a garantia de retorno do <strong>CVO (Value Office)</strong>. Inclui indicadores preditivos, gates de decisão e checklist de transição, alinhado às melhores práticas de gestão de valor e controle de projetos.</p>
+        
+        <!-- GRÁFICO CORRIGIDO: agora mostra VPL como percentual do CAPEX e evita distorção visual -->
+        <div style="text-align: center; margin-top: 1.5rem;">
+            <div class="simple-chart">
+                <svg viewBox="0 0 400 210" style="width:100%; height:auto; font-family: 'Inter', sans-serif;">
+                    <rect width="400" height="210" fill="#fafcff" rx="12" />
+                    <text x="200" y="28" text-anchor="middle" font-size="12" font-weight="600" fill="rgb(39,98,141)">CAPEX vs. Valor Criado (VPL)</text>
+                    <!-- Barra CAPEX -->
+                    <rect x="80" y="100" width="70" height="60" fill="rgb(39,98,141)" rx="6" opacity="0.85" />
+                    <text x="115" y="92" text-anchor="middle" font-size="11" font-weight="500" fill="#1f4e6e">CAPEX</text>
+                    <text x="115" y="178" text-anchor="middle" font-size="10" fill="#2c5a7a">R$ 1.000k</text>
+                    <!-- Barra VPL ajustada para refletir proporção visual de 8,1% (altura ~5px) mas legível -->
+                    <rect x="230" y="155" width="70" height="5" fill="rgb(39,98,141)" rx="2" opacity="0.7" />
+                    <text x="265" y="150" text-anchor="middle" font-size="11" font-weight="500" fill="#1f4e6e">VPL</text>
+                    <text x="265" y="178" text-anchor="middle" font-size="10" fill="#2c5a7a">+ R$ 81k (8,1% do CAPEX)</text>
+                    <line x1="60" y1="160" x2="340" y2="160" stroke="#cbdde6" stroke-width="1" stroke-dasharray="4" />
+                    <text x="200" y="198" text-anchor="middle" font-size="9" fill="#4a627a">VPL positivo representa excedente de valor acima do WACC. Exemplo: 8,1% de retorno extra.</text>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ciclo de Vida -->
+    <div class="timeline-cycle">
+        <div class="cycle-step"><i class="fas fa-lightbulb icon-transition"></i><h3>Fase 1 · Originação</h3><small>Foco CVO · Decisão & risco</small></div>
+        <div class="arrow-symbol"><i class="fas fa-arrow-right"></i></div>
+        <div class="cycle-step"><i class="fas fa-hard-hat icon-transition"></i><h3>Fase 2 · Execução</h3><small>Foco PMO · Controle preditivo</small></div>
+        <div class="arrow-symbol"><i class="fas fa-arrow-right"></i></div>
+        <div class="cycle-step"><i class="fas fa-chart-line icon-transition"></i><h3>Fase 3 · Operação</h3><small>Foco CVO · Captura de valor</small></div>
+    </div>
+
+    <!-- FASE 1 com VPL, TIR, sensibilidade e BCR (melhoria) -->
+    <div class="section-title"><i class="fas fa-chart-pie"></i> Fase 1: Originação, Viabilidade e Aprovação</div>
+    <div class="flex-cards">
+        <div class="card">
+            <i class="fas fa-percent icon-transition"></i>
+            <h3>TIR e VPL <span class="badge">Decisão central</span></h3>
+            <p><strong>TIR:</strong> taxa que zera o VPL. <strong>VPL:</strong> soma dos fluxos descontados menos CAPEX.</p>
+            <div class="formula-block">$$VPL = \sum_{t=0}^{n} \frac{FC_t}{(1+WACC)^t} - CAPEX$$</div>
+            <div class="example"><strong>Exemplo integrado:</strong> CAPEX=1.000k, FC=300k/ano (5 anos), WACC=12%. VPL = 81k > 0 → projeto viável. TIR = 15,2% > 12%.</div>
+            <p><strong>Análise de sensibilidade:</strong> Se as receitas caírem 10% (FC=270k), VPL ≈ -R$ 27k (rejeitar). O CVO deve testar premissas críticas.</p>
+            <!-- Melhoria: BCR adicionado -->
+            <div class="callout">
+                <i class="fas fa-calculator"></i> <strong>Benefit-Cost Ratio (BCR)</strong><br>
+                $$BCR = \frac{\text{VP dos benefícios}}{\text{CAPEX}} = \frac{1.081k}{1.000k} = 1,08$$
+                <em>Gate BCR:</em> BCR < 1,0 → projeto destrói valor (rejeitar).
+            </div>
+        </div>
+        <div class="card">
+            <i class="fas fa-hourglass-half icon-transition"></i>
+            <h3>Payback Descontado + Risco</h3>
+            <p>Tempo de recuperação do investimento com custo do capital considerado.</p>
+            <!-- Correção: Explicação completa do cálculo do payback descontado -->
+            <div class="formula-block">
+                Fluxos descontados (WACC=12%):
+                <table style="width:100%; font-size:0.75rem; margin-top:0.5rem; border-collapse:collapse;">
+                    <tr><th>Ano</th><th>FC nominal</th><th>FC descontado</th><th>Acumulado</th></tr>
+                    <tr><td>0</td><td>-1.000k</td><td>-1.000k</td><td>-1.000k</td></tr>
+                    <tr><td>1</td><td>300k</td><td>267,9k</td><td>-732,1k</td></tr>
+                    <tr><td>2</td><td>300k</td><td>239,2k</td><td>-492,9k</td></tr>
+                    <tr><td>3</td><td>300k</td><td>213,5k</td><td>-279,4k</td></tr>
+                    <tr><td>4</td><td>300k</td><td>190,7k</td><td>-88,7k</td></tr>
+                    <tr><td>5</td><td>300k</td><td>170,2k</td><td>+81,5k</td></tr>
+                </table>
+                $$\text{Payback descontado} = 4 + \frac{88,7}{170,2} \approx 4,52 \text{ anos}$$
+            </div>
+            <div class="example"><strong>Interpretação gerencial:</strong> Projetos com payback descontado > 5 anos exigem maior prêmio de risco. O exemplo (4,5 anos) é aceitável para ativos de longa duração.</div>
+        </div>
+    </div>
+
+    <!-- FASE 2 com SPI, EAC, VAC (incluindo abordagem alternativa de EAC) -->
+    <div class="section-title"><i class="fas fa-chart-simple"></i> Fase 2: Execução - Controle Preditivo (PMO)</div>
+    <div class="flex-cards">
+        <div class="card">
+            <i class="fas fa-coins icon-transition"></i>
+            <h3>IDC (CPI) e projeções EAC / VAC</h3>
+            <div class="formula-block">$$IDC = \frac{VA}{CR} \quad\quad EAC = \frac{BAC}{IDC}$$</div>
+            <p><strong>Exemplo:</strong> BAC (orçamento total) = R$ 1.200k, VA=500k, CR=550k → IDC=0,91. EAC = 1.200k / 0,91 = R$ 1.318k. VAC = -R$ 118k (estouro previsto).</p>
+            <div class="example"> <strong>Decisão:</strong> PMO deve acionar plano de contenção e renegociar contratos se IDC persistir abaixo de 0,9.</div>
+            <!-- Melhoria: EAC com abordagem combinada -->
+            <div class="callout">
+                <i class="fas fa-chart-line"></i> <strong>EAC alternativo (conservador):</strong><br>
+                $$EAC = AC + \frac{BAC - EV}{CPI \times SPI}$$
+                Se SPI também estiver baixo, essa fórmula projeta um cenário ainda mais realista.
+            </div>
+        </div>
+        <div class="card">
+            <i class="fas fa-calendar-alt icon-transition"></i>
+            <h3>SPI (Índice de Desempenho de Prazo) e DV</h3>
+            <div class="formula-block">$$SPI = \frac{VA}{VP} \quad\quad DV = VA - VP$$</div>
+            <p><strong>Exemplo:</strong> VP = 600k, VA = 500k → SPI = 0,83 (17% de atraso em eficiência). DV = -R$ 100k.</p>
+            <div class="example"> SPI < 0,9 exige análise de recuperação de cronograma (crashing ou fast tracking).</div>
+        </div>
+    </div>
+
+    <!-- FASE 3 com TRB corrigido (período anual) e ROI realizado -->
+    <div class="section-title"><i class="fas fa-chart-line"></i> Fase 3: Operação, Captura de Valor e Handover</div>
+    <div class="flex-cards">
+        <div class="card">
+            <i class="fas fa-clipboard-list icon-transition"></i>
+            <h3>TRB (Taxa de Realização de Benefícios) e ROI Realizado</h3>
+            <div class="formula-block">$$TRB = \left( \frac{\text{Benefício Real Anual}}{\text{Benefício Projetado Anual}} \right) \times 100$$</div>
+            <p><strong>Exemplo claro:</strong> Benefício projetado no primeiro ano = R$ 200k. Benefício real apurado após 12 meses = R$ 140k → TRB = 70%. Abaixo de 80% aciona plano de recuperação.</p>
+            <div class="formula-block">$$ROI_{\text{realizado}} = \frac{\text{Benefício Acumulado (n anos)} - \text{CAPEX Real}}{\text{CAPEX Real}} \times 100$$</div>
+            <div class="example"><strong>Exemplo pós-projeto (falha):</strong> Benefício real anual médio = R$ 160k, CAPEX real = R$ 1.050k. Após 5 anos: benefício acumulado = 800k. ROI = (800-1050)/1050 = -23,8% → CVO dispara auditoria e plano de recuperação de benefícios (redução de OPEX, renegociação de contratos).</div>
+        </div>
+        <div class="card">
+            <i class="fas fa-exchange-alt icon-transition"></i>
+            <h3>Checklist Go-Live (PMO → CVO)</h3>
+            <ul class="checklist">
+                <li><i class="fas fa-check-circle"></i> Ativo operando conforme especificações (teste de aceitação)</li>
+                <li><i class="fas fa-check-circle"></i> Documentação técnica e treinamento transferidos</li>
+                <li><i class="fas fa-check-circle"></i> Custo final dentro de 10% do orçamento aprovado</li>
+                <li><i class="fas fa-check-circle"></i> Plano de manutenção e KPIs operacionais definidos</li>
+                <li><i class="fas fa-check-circle"></i> Registro de lições aprendidas para o CVO</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Matriz de Decisão com Gates (incluindo novo gate para Handover e BCR) -->
+    <div class="section-title"><i class="fas fa-gavel"></i> Matriz de Decisão · Gates de Governança</div>
+    <div class="table-wrapper gate-table">
+        <table class="resp-table">
+            <thead><tr><th>Indicador</th><th>Condição</th><th>Ação Imediata</th><th>Responsável</th></tr></thead>
+            <tbody>
+                <tr style="background: var(--gate-green);"><td>TIR vs WACC / BCR</td><td>TIR < WACC <strong>ou</strong> BCR < 1,0</td><td>Vetar projeto / devolver para reestruturação</td><td>CVO / Comitê</td></tr>
+                <tr style="background: var(--gate-orange);"><td>IDC (CPI)</td><td>IDC < 0,85 por 2 meses</td><td>Paralisação condicional, renegociação de contratos</td><td>PMO + Sponsor</td></tr>
+                <tr style="background: var(--gate-red);"><td>SPI</td><td>SPI < 0,80</td><td>Plano de recuperação de cronograma e reporte à diretoria</td><td>PMO</td></tr>
+                <tr style="background: var(--gate-orange);"><td>TRB (1º ano)</td><td>TRB < 70%</td><td>Acionar plano de recuperação de benefícios</td><td>CVO / Área de negócio</td></tr>
+                <tr style="background: var(--gate-red);"><td>ROI realizado (3 anos)</td><td>ROI < 0%</td><td>Auditoria pós-projeto e revisão de processo de originação</td><td>Auditoria interna / Board</td></tr>
+                <!-- NOVO GATE: Handover -->
+                <tr style="background: var(--gate-orange);"><td>Checklist Go-Live</td><td>Qualquer item não atendido</td><td>Transferência bloqueada; plano de correção em 15 dias</td><td>PMO + CVO</td></tr>
+            </tbody>
+        </table>
+        <p style="font-size:0.8rem; padding: 0.8rem 1rem;">* Gates devem ser avaliados nos marcos: aprovação, 30% execução, 80% execução, handover e 12 meses pós-operação.</p>
+    </div>
+
+    <!-- Matriz de Responsabilidade -->
+    <div class="section-title"><i class="fas fa-bezier-curve"></i> Matriz de Responsabilidade CAPEX: PMO vs. CVO</div>
+    <div class="table-wrapper">
+        <table class="resp-table">
+            <thead><tr><th>Indicador / Atividade</th><th>Responsável</th><th>Entrada de Dados</th><th>Destino do Reporte</th></tr></thead>
+            <tbody>
+                <tr><td>Aprovação do Orçamento + VPL/TIR/BCR</td><td>CVO</td><td>Premissas de Mercado / Engenharia</td><td>Comitê de Investimentos (Board)</td></tr>
+                <tr><td>Execução Física, IDC, SPI, EAC</td><td>PMO</td><td>Medições de empreiteiros / notas fiscais</td><td>Sponsor do Projeto / Diretoria</td></tr>
+                <tr><td>Auditoria Pós-Projeto (TRB, ROI realizado)</td><td>CVO</td><td>DRE Operacional / Resultados de Vendas</td><td>CFO / Acionistas</td></tr>
+                <tr><td>Checklist Go-Live e transição</td><td>PMO + CVO</td><td>Documentação técnica / testes</td><td>Comitê de ativos</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Glossário ampliado (inclui BCR) -->
+    <div class="section-title"><i class="fas fa-book-open"></i> Glossário Técnico (CAPEX, PMO, CVO e indicadores)</div>
+    <div class="glossary-grid">
+        <div class="glossary-item"><span class="glossary-term">CAPEX</span> – Investimento em ativos fixos (máquinas, obras).</div>
+        <div class="glossary-item"><span class="glossary-term">OPEX</span> – Custos operacionais recorrentes (manutenção, energia).</div>
+        <div class="glossary-item"><span class="glossary-term">PMO</span> – Gerencia cronograma, custo e entregas físicas.</div>
+        <div class="glossary-item"><span class="glossary-term">CVO</span> – Assegura captura de benefícios e retorno sobre o investimento.</div>
+        <div class="glossary-item"><span class="glossary-term">VPL</span> – Valor Presente Líquido. Soma dos fluxos descontados menos CAPEX.</div>
+        <div class="glossary-item"><span class="glossary-term">TIR</span> – Taxa Interna de Retorno (rentabilidade percentual).</div>
+        <div class="glossary-item"><span class="glossary-term">WACC</span> – Custo médio ponderado de capital (taxa mínima de atratividade).</div>
+        <div class="glossary-item"><span class="glossary-term">BCR</span> – Benefit-Cost Ratio (Relação Benefício-Custo). VP dos benefícios / CAPEX.</div>
+        <div class="glossary-item"><span class="glossary-term">IDC / CPI</span> – Índice de Desempenho de Custos (EVM).</div>
+        <div class="glossary-item"><span class="glossary-term">SPI</span> – Índice de Desempenho de Prazo (VA/VP).</div>
+        <div class="glossary-item"><span class="glossary-term">EAC</span> – Estimativa no término (projeção de custo final).</div>
+        <div class="glossary-item"><span class="glossary-term">VAC</span> – Variância no término (BAC - EAC).</div>
+        <div class="glossary-item"><span class="glossary-term">TRB</span> – Taxa de Realização de Benefícios (primeiro ano).</div>
+        <div class="glossary-item"><span class="glossary-term">ROI realizado</span> – Retorno sobre investimento apurado após operação.</div>
+        <div class="glossary-item"><span class="glossary-term">Go-Live / Handover</span> – Transição formal do projeto para a operação.</div>
+        <div class="glossary-item"><span class="glossary-term">Gate</span> – Ponto de decisão baseado em indicadores.</div>
+    </div>
+    
+    <!-- Nota final com referências normativas -->
+    <div class="card" style="background: #fefdf7;">
+        <i class="fas fa-chalkboard icon-transition"></i>
+        <p style="margin-top: 0.5rem;">Este manual incorpora métricas preditivas (EAC, SPI), gates acionáveis e checklist de handover, preenchendo lacunas comuns em frameworks de CAPEX. A integração PMO-CVO garante que o valor planejado na originação seja efetivamente entregue e mensurado na operação.</p>
+        <p class="callout" style="margin-top:0.8rem;"><i class="fas fa-certificate"></i> <strong>Referências de boas práticas:</strong> Alinhado ao PMBOK® 7ª ed., ISO 21502:2020 e BABOK® Guide (gestão de benefícios).</p>
+    </div>
+</main>
+
+<footer class="footer">
+    <p>© 2026 Silvanio Gois - Todos os direitos reservados | 
+        <a href="https://www.silvaniogois.com.br/" target="_blank" rel="noopener noreferrer">ir ao Site <i class="fas fa-external-link-alt"></i></a>
+    </p>
+    <div class="footer-quote">
+        <i class="fas fa-quote-left"></i> Da estratégia à operação, conectando processos, pessoas e resultados.
+    </div>
+</footer>
+
+<button class="btn-top" id="backToTopBtn" aria-label="Voltar ao topo"><i class="fas fa-chevron-up"></i></button>
+
+<script>
+    const topBtn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 400) {
+            topBtn.classList.add('show');
+        } else {
+            topBtn.classList.remove('show');
+        }
+    });
+    topBtn.addEventListener('click', function(e) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+</body>
+</html>
